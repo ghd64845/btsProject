@@ -1,0 +1,169 @@
+@charset "UTF-8";
+#header .member_menu .memberArea{
+	position:absolute;
+	left:5px;
+}
+#header .member_menu .memberArea .mypage{
+	position:absolute;
+	top:3px;
+}
+#header .member_menu .memberArea .logout{
+	position:absolute;
+	left:80px;
+	top:3px;
+}
+#header .member_menu .memberArea span{
+	font-family:"nanum";
+}
+.body{
+	position:relative;
+	max-width:100%;
+	height:auto;
+	width:100%;
+	overflow-x:hidden;
+}
+.body .top_content{
+	width:100%;
+	padding-top:100px;
+	max-height:auto;
+	margin-left:50%;
+	margin-right:50%;
+	transform:translate(-30%);
+}
+.body .top_content img{
+	width:650px;
+	height:300px;
+	border-radius:10px;
+}
+.top_content .plan_desc{
+	position:absolute;
+	border:1px solid #FFFAE8;
+	width:480px;
+	height:300px;
+	border-radius:10px;
+	display:inline-block;
+	margin-left:10px;
+	line-height:30px;
+	background-color:#FFFAE8;
+}
+.top_content .plan_desc h1,span,p{
+	margin-left:10px;
+	font-family:"Binggrae", sans-serif;
+}
+.top_content .plan_desc .plan_btn{
+	border:1px solid rgb(127,127,127);
+	background-color:rgb(127,127,127);
+	color:#fff;
+	border-size:border-box;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-right:20px;
+	padding-left:20px;
+	border-radius:10px;
+	margin-top:50px;
+	margin-left:50%;
+	margin-right:auto;
+	transform:translate(-50%);
+	
+}
+.top_content .plan_desc .plan_btn:hover{
+	border:1px solid rgb(127,127,127);
+	background-color:rgb(80,80,80);
+	color:#fff;
+	border-size:border-box;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-right:20px;
+	padding-left:20px;
+	border-radius:10px;
+}
+.plan_myPlan{
+	position:relative;
+	width:100%;
+	height:auto;
+	margin:0 auto;
+	margin-left:50%;
+	margin-right:10%;
+	transform:translate(-30%);
+	
+}
+.plan_myPlan h1{
+	padding-top:30px;
+	max-height:auto;
+	width:1142px;
+	padding-bottom:40px;
+	border-bottom:1px solid black;
+	
+}
+.my_plan{
+ position:relative;
+}
+.my_plan #plan_info{
+	position:relative;
+	margin-top:50px;
+	width:1142px;
+	border-bottom: 1px solid rgb(160,160,160);
+}
+
+.my_plan a img{
+	width:200px;
+	height:200px;
+	margin-bottom: 20px;
+}
+.my_plan h2{
+	position:absolute;
+	display:inline-block;
+	top:0;
+	margin:0;
+	margin-left:10px;
+	font-size:25px;
+	margin-bottom: 20px;
+}
+.my_plan p{
+	position:absolute;
+	display:inline-block;
+	margin:0;
+	margin-left:10px;
+	font-size:15px;
+	bottom:0;
+	margin-bottom: 20px;
+}
+.my_plan .registerDt{
+	position:absolute;
+	display:inline-block;
+	margin:0;
+	margin-bottom: 20px;
+	font-size:12px;
+	bottom:0;
+	right:20px;
+}
+.my_plan .memberId{
+	position:absolute;
+	display:inline-block;
+	margin:0;
+	margin-left:10px;
+	font-size:15px;
+	bottom:40px;
+	margin-bottom: 20px;	
+}
+.my_plan .personType{
+	position:absolute;
+	display:inline-block;
+	margin:0;
+	margin-left:10px;
+	font-size:15px;
+	top:40px;
+	margin-bottom: 20px;	
+}
+.my_plan #plan_info .delete_plan{
+	position:absolute;
+	width:32px;
+	height:32px;
+	right:0;
+	
+}
+.my_plan #plan_info .delete_plan .delete_icon{
+	position:absolute;
+	width:25px;
+	height:25px;
+}

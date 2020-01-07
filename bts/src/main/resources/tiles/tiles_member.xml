@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+   <!-- 기본 레이아웃 적용 화면 템플릿 -->
+   <definition name="baseLayout"  template="/WEB-INF/views/common/baseLayout.jsp">
+
+      <put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
+      <put-attribute name="body" value="" />
+      <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
+   </definition>
+   
+
+   <!-- 마이페이지 기본 레이아웃 적용 화면 템플릿 -->
+   <definition name="myPageLayout"  template="/WEB-INF/views/common/myPageLayout.jsp">
+      <put-attribute name="title" value="마이페이지" />
+      <put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
+      <put-attribute name="body" value="" />
+      <put-attribute name="side" value="/WEB-INF/views/common/mySide.jsp" />
+      <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
+   </definition>
+   
+   <!-- 예약페이지 기본 레이아웃 적용 화면 템플릿 -->
+	<definition name="resveInfoLayout" template="/WEB-INF/views/common/resveInfoLayout.jsp">
+		<put-attribute name="title" value="예약페이지" />
+		<put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
+	</definition>
+   
+   <!-- 관리자페이지 기본 레이아웃 적용 화면 템플릿 -->
+   <definition name="adminLayout"  template="/WEB-INF/views/common/adminLayout.jsp">
+   	  <put-attribute name="header" value="/WEB-INF/views/common/adminHeader.jsp" />	
+      <put-attribute name="side" value="/WEB-INF/views/common/adminSide.jsp" />
+      <put-attribute name="body" value="" />
+   </definition>   
+ 
+   
+   <!-- 레이아웃 미적용 화면 템플릿-->
+   <definition name="emptyLayout"  template="/WEB-INF/views/common/emptyLayout.jsp">   
+   <put-attribute name="body" value="" />
+   </definition>
+   
+   <!-- 마이페이지 레이아웃 적용-->
+   <definition name="/c/*/*" extends="myPageLayout">
+      <put-attribute name="body"
+         value="/WEB-INF/views/c/{1}/{2}.jsp" />
+   </definition>
+   
+   <!-- 예약페이지 레이아웃 적용 -->
+	<definition name="/h/p001/d001" extends="resveInfoLayout">
+	   <put-attribute name="body"
+		 value="/WEB-INF/views/h/p001/d001.jsp" />
+	</definition>
+   
+   <!-- 관리자페이지 레이아웃 적용 -->
+   <definition name="/a/*/*" extends="adminLayout">
+      <put-attribute name="body"
+         value="/WEB-INF/views/a/{1}/{2}.jsp" />
+	</definition>
+
+	<!-- 레이아웃 미적용 -->
+	<definition name="/z/*/*" extends="emptyLayout">
+      <put-attribute name="body"
+         value="/WEB-INF/views/z/{1}/{2}.jsp" />
+	</definition>
+	
+	<definition name="/b/p001/d001" extends="emptyLayout">
+      <put-attribute name="body"
+         value="/WEB-INF/views/b/p001/d001.jsp" />
+	</definition>
+	
+	<definition name="/i/p002/d001" extends="emptyLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/views/i/p002/d001.jsp" />
+	</definition>
+	
+	<definition name="/common/report" extends="emptyLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/views/common/report.jsp" />
+	</definition>
+	
+	<definition name="/a/p004/d003" extends="emptyLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/views/a/p004/d003.jsp" />
+	</definition>
+
+	<definition name="/common/exception/*" extends="emptyLayout">
+      <put-attribute name="body"
+         value="/WEB-INF/views/common/exception/{1}.jsp" />
+	</definition>
+   
+   <!-- 레이아웃 적용-->
+   <definition name="/*/*" extends="baseLayout">
+
+      <put-attribute name="body"
+         value="/WEB-INF/views/{1}/{2}.jsp" />
+   </definition>
+   <definition name="/*/*/*" extends="baseLayout">
+
+      <put-attribute name="body"
+         value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+   </definition>   
+   
+</tiles-definitions>

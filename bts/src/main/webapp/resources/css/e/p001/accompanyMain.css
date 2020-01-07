@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+#accMainImage{
+	
+	width:1200px;
+	height:430px;
+}
+#writeBtn{
+	background:#666666;
+	border:1px solid #666666;
+}
+#acc_title{
+	color:#666666;
+}
+#prev,#next,#pageNo{
+	color:#666666;
+}
+#trafficImg{
+	width:30px;
+	height:30px;
+}
+#selectBox{
+	width:120px;
+	display:inline-block;
+}
+#search{
+	display:inline-block;
+	width:400px;
+}
+#searchBtn{
+	background:#666666;
+	display:inline-block;
+	border:1px solid #666666;
+}
+#searchFrm{
+	display:inline-block;
+	padding-left:250px;
+}

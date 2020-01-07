@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="g.p001_2">
+<!-- 리절트 맵 정의 -->
+	<resultMap id="categoryResult" type="java.util.HashMap">
+		<result property="category_cd" column="category_cd" />
+		<result property="name" column="name" />
+		<result property="upper_category_cd" column="upper_category_cd" />		
+	</resultMap>
+	
+	<resultMap id="wishlistResult" type="g_p001_2VO">
+		<result property="content_id" column="content_id" />
+		<result property="member_id" column="member_id" />
+	</resultMap>
+	
+	<!-- 상위 카테고리 -->
+	<select id="selectUpperCategory" resultMap="categoryResult">
+		<![CDATA[
+			SELECT category_cd, name
+			FROM category
+			WHERE upper_category_cd IS NULL
+			AND category_cd != '25'				
+		]]>	
+	</select>
+	
+	<!-- 코스 카테고리 -->
+	<select id="selectCourseCategory" resultMap="categoryResult">
+		<![CDATA[
+			SELECT category_cd, name
+			FROM category
+			WHERE upper_category_cd = '25'
+		]]>	
+	</select>
+	
+	<!-- 하위 카테고리 -->
+	<select id="selectCategory" resultMap="categoryResult">
+		<![CDATA[
+			SELECT category_cd, name, upper_category_cd
+			FROM category
+			WHERE upper_category_cd IS NOT NULL			 
+		]]>	
+	</select>
+	
+	<!-- 위시리스트 중복조회 -->
+	<select id="findWishlist" resultType="String" parameterType="g_p001_2VO">
+		<![CDATA[
+			SELECT DECODE(COUNT(*), 0, 'false', 'true')
+			FROM recommend_wish_list
+			WHERE content_id = #{content_id}
+			AND member_id = #{member_id}
+		]]>
+	</select>
+	
+	<!-- 위시리스트 추가 -->
+	<insert id="insertWishlist" parameterType="g_p001_2VO">
+		<![CDATA[
+			INSERT INTO recommend_wish_list(content_id, member_id)
+			VALUES (#{content_id}, #{member_id})
+		]]>
+	</insert>
+	
+	<!-- 본인 위시리스트 조회 -->
+	<select id="searchWishlist" parameterType="String" resultMap="wishlistResult">
+		<![CDATA[
+			SELECT content_id
+			FROM recommend_wish_list
+			WHERE member_id = #{member_id}
+		]]>
+	</select>
+</mapper>

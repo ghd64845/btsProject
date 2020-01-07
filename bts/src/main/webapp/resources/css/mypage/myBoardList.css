@@ -1,0 +1,64 @@
+@charset "UTF-8";
+@font-face {
+	src: url("/bts/resources/fonts/Nanum/NanumSquareRoundEB.ttf");
+    font-family: "NanumSquareRoundEB";
+}
+@font-face {
+	src: url("/bts/resources/fonts/Nanum/NanumSquareRoundB.ttf");
+    font-family: "NanumSquareRoundB";
+}
+@font-face {
+    src: url("/bts/resources/fonts/Nanum/NanumSquareRoundR.ttf");
+    font-family: "NanumSquareRoundR";
+}
+
+#subjectText{
+	font-family: "NanumSquareRoundEB";
+	display : inline-block;
+}
+
+.container{
+	font-family: "NanumSquareRoundR";
+	margin-top:50px;
+}
+body{
+	margin-top: 100px;
+	line-height: 1.6
+}
+#acc_title, #prev, #next, #pageNo{
+	color:#666666;
+}
+
+ul.tabs{
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+ul.tabs li{
+	background: none;
+	color: #222;
+	display: inline-block;
+	padding: 10px 15px;
+	cursor: pointer;
+}
+
+ul.tabs li.current{
+	background: #F8F8FA;
+	color: #222;
+}
+
+.tab-content{
+	display: none;
+	background: #F8F8FA;
+	padding: 15px;
+}
+
+.tab-content.current{
+	display: inherit;
+}
+
+img.document{
+	width : 50px;
+	width : 50px;
+	
+}

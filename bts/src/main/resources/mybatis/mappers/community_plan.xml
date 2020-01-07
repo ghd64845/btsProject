@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="d.p001_4">
+	<!-- 리절트 맵 정의 -->
+	<resultMap id="articleResult" type="d_p001_4VO">
+		<result property="rownum" column="rownum" />
+		<result property="member_id" column="member_id" />
+		<result property="title" column="title" />
+		<result property="plan_no" column="plan_no" />
+		<result property="register_date" column="register_date" />
+		<result property="person_se" column="person_se" />
+		<result property="range_date" column="range_date" />
+		<result property="open_val" column="open_val" />
+		<result property="view_cnt" column="view_cnt" />		
+	</resultMap>
+	
+	<resultMap id="detailResult" type="d_p001_4VO_2">
+		<result property="title" column="title" />
+		<result property="content_id" column="content_id" />
+		<result property="plan_no" column="plan_no" />
+		<result property="day_no" column="day_no" />
+		<result property="plan_desc" column="plan_desc" />
+		<result property="detail_no" column="detail_no" />
+		<result property="range_date" column="range_date" />
+	</resultMap>
+	
+	<resultMap id="tagResult" type="d_p001_4VO_3">
+		<result property="tag_name" column="tag_name" />
+		<result property="plan_no" column="plan_no" />
+	</resultMap>
+	
+	<resultMap id="ansResult" type="d_P001_4VO_5">
+		<result property="answer_no" column="answer_no" />
+		<result property="article_no" column="article_no" />
+		<result property="article_cd" column="article_cd" />
+		<result property="answer_desc" column="answer_desc" />
+		<result property="register_date" column="register_date" />	
+		<result property="member_id" column="member_id" />		
+		<result property="member_type" column="member_type" />	
+		<result property="profile_image" column="profile_image" />
+	</resultMap>
+	
+	<resultMap id="findThumnail" type="java.util.HashMap">
+		<result property="plan_no" column="plan_no" />
+		<result property="content_id" column="content_id" />
+	</resultMap>
+
+	<!-- 게시글 조회 -->
+	<select id="searchArticle" resultMap="articleResult">
+		<![CDATA[
+			SELECT b.* 
+			FROM
+			(
+			    SELECT rownum as rnum, a.*
+			    FROM 
+			    (
+			        SELECT member_id, title, plan_no, register_date, range_date, open_val, view_cnt, person_se
+			        FROM planner
+			        WHERE open_val='Y'
+		]]>
+					<if test="category == '제목'">
+					AND title LIKE '%' ||  #{searchResult} || '%'
+					</if>
+					<if test="category == '작성자'">
+					AND member_id LIKE '%' ||  #{searchResult} || '%'
+					</if>
+		<![CDATA[	
+			        ORDER BY register_date DESC		
+			    ) a
+			    WHERE rownum<=#{end}
+			) b
+			WHERE b.rnum>=#{start}	
+		]]>	
+	</select>
+	
+	<!-- 게시글 상세 조회 -->
+	<select id="contentsArticle" resultMap="articleResult" parameterType="String">
+		<![CDATA[
+			SELECT title, member_id, register_date, person_se, range_date
+			FROM planner
+			WHERE plan_no = #{plan_no}
+		]]>	
+	</select>
+	
+	<!-- 플래너 연동 조회-->
+	<select id="plannerDetail" resultMap="detailResult" parameterType="String">
+		<![CDATA[		
+			SELECT DISTINCT(title), content_id, p.plan_no, plan_desc, day_no, detail_no, range_date
+			FROM planner p, planner_detail pd
+			WHERE p.plan_no = pd.plan_no
+			AND p.plan_no = #{plan_no}
+			ORDER BY detail_no
+		]]>
+	</select>
+	
+	<!-- 본인 플래너 글 조회 -->
+	<select id="selectMyplan" resultMap="articleResult" parameterType="String">
+		<![CDATA[
+			SELECT plan_no, title, member_id, register_date
+			FROM planner
+			WHERE member_id = #{member_id}	
+		]]>
+	
+	</select>
+	
+	<!-- 플래너 내용 추가 -->
+	<update id="insertDesc" parameterType="list">
+		<foreach collection="list" item="item" separator=";" open="DECLARE BEGIN" close="; END;">
+		UPDATE planner_detail
+		SET plan_desc = #{item.plan_desc,jdbcType=VARCHAR}
+		WHERE plan_no = #{item.plan_no,jdbcType=VARCHAR}
+		AND content_id = #{item.content_id,jdbcType=VARCHAR}
+		</foreach>
+	</update>
+	
+	<!-- 플래너 추가시 open_val 변경 -->
+	<update id="updateOpen" parameterType="list">
+		<foreach collection="list" item="item" separator=";" open="DECLARE BEGIN" close="; END;">
+			UPDATE planner
+			SET open_val = 'Y', title = #{item.title}, register_date = TO_CHAR(sysdate, 'YYYY-MM-DD hh24:mi'), view_cnt = 0
+			WHERE plan_no = #{item.plan_no}		
+		</foreach>
+	</update>
+	
+	<!-- 플래너 수정시 제목 변경 -->
+	<update id="updateTitle" parameterType="list">
+		<foreach collection="list" item="item" separator=";" open="DECLARE BEGIN" close="; END;">
+			UPDATE planner
+			SET title = #{item.title}
+			WHERE plan_no = #{item.plan_no}
+		</foreach>
+	</update>
+	
+	
+	<!-- 태그 조회 -->
+	<select id="searchTag" resultMap="tagResult" parameterType="String">
+		<![CDATA[
+			SELECT tag_name
+			FROM tag_planner
+			WHERE plan_no = #{plan_no}
+		]]>
+	</select>
+	
+	<!-- 플랜 게시글 삭제 -->
+	<update id="deletePlan" parameterType="String">
+		<![CDATA[
+			UPDATE planner
+			SET open_val = 'N'
+			WHERE plan_no = #{plan_no}	
+		]]>
+	</update>
+	
+	<!-- 조회수 증가 -->
+	<update id="viewCnt" parameterType="String">
+		<![CDATA[
+			UPDATE planner
+			SET view_cnt = view_cnt+1
+			WHERE plan_no = #{plan_no}
+		]]>
+	</update>
+	
+	<!-- 게시글 리스트 카운트 -->
+	<select id="pageCount" resultType="java.lang.Integer">
+		<![CDATA[
+			SELECT COUNT(*)
+			FROM planner
+			WHERE open_val = 'Y'
+		]]>
+			<if test="category == '제목'">
+			AND title LIKE '%' ||  #{searchResult} || '%'
+			</if>
+			<if test="category == '작성자'">
+			AND member_id LIKE '%' ||  #{searchResult} || '%'
+			</if>
+	</select>
+	
+	<!-- 댓글 리스트 검색 -->
+	<select id="selectAnswerList" parameterType="Map" resultMap="ansResult">
+		<![CDATA[
+			SELECT b.* 
+			FROM
+			(
+			    SELECT rownum as rnum, a.*
+			    FROM 
+			    (
+			        SELECT answer_no,article_no,answer_desc,register_date,ar.member_id,profile_image,member_type
+			        FROM answer_article ar,b_member mem
+			        WHERE ar.member_id=mem.member_id
+                    AND article_cd=#{article_cd}
+                    AND article_no=#{article_no}
+			        ORDER BY answer_no
+			    ) a
+			    WHERE rownum<=#{endRow}
+			) b
+			WHERE b.rnum>=#{startRow}
+		]]>
+	</select>
+	
+	<!-- 메뉴 코드 검색 -->
+	<select id="selectArticleCd" parameterType="String" resultType="String">
+		<![CDATA[
+			SELECT menu_cd
+			FROM menu
+			WHERE name = #{name}
+		]]>
+	</select>
+	
+	<!-- 댓글 리스트 카운트 -->
+	<select id="selectCommentTotal" parameterType="map" resultType="String">
+		<![CDATA[
+			SELECT COUNT(*) totalCount
+			FROM answer_article 
+			WHERE article_cd = #{article_cd}
+			AND article_no = #{article_no}
+		]]>
+	</select>
+	
+	<!-- 댓글 추가 -->
+	<insert id="insertAnswer" parameterType="d_p001_4VO_5">
+		<![CDATA[
+			INSERT INTO answer_article(article_no, article_cd, answer_no, answer_desc, member_id, register_date)
+			VALUES (#{article_no}, #{article_cd}, article_comment_seq.nextval, #{answer_desc}, #{member_id}, sysdate)
+		]]>
+	</insert>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteAnswer" parameterType="String">
+		<![CDATA[
+			DELETE FROM answer_article
+			WHERE answer_no = #{answer_no}
+		]]>
+	</delete>
+	
+	<!-- 썸네일 가져오기 -->
+	<select id="findContentId" parameterType="String" resultMap="findThumnail">
+		<![CDATA[
+			SELECT DISTINCT(p.plan_no), FIRST_VALUE(content_id) OVER(PARTITION BY p.plan_no) AS content_id
+			FROM planner p, planner_detail pd
+			WHERE p.plan_no = pd.plan_no
+			AND open_val = 'Y'
+		]]>
+	</select>
+	
+	<!-- 게시글 제목 검색 -->
+	<select id="searchTitle" parameterType="String" resultMap="articleResult">
+		<![CDATA[
+			SELECT b.* 
+			FROM
+			(
+			    SELECT rownum as rnum, a.*
+			    FROM 
+			    (
+			        SELECT member_id, title, plan_no, register_date, range_date, open_val, view_cnt
+			        FROM planner
+			        WHERE open_val='Y'
+			        AND title LIKE '%' ||  #{searchResult} || '%'
+			        ORDER BY register_date DESC
+			    ) a
+			) b
+		]]>	
+	</select>
+		
+</mapper>

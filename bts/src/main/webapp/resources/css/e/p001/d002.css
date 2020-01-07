@@ -1,0 +1,64 @@
+@charset "UTF-8";
+
+@font-face {
+	src: url("/bts/resources/fonts/Nanum/NanumSquareRoundEB.ttf");
+   	font-family: "NanumSquareRoundEB";
+}
+
+@font-face {
+   	src: url("/bts/resources/fonts/Nanum/NanumSquareRoundR.ttf");
+   	font-family: "NanumSquareRoundR";
+}
+
+.container{
+	font-family: "NanumSquareRoundR";
+}
+#accImage{
+	padding:auto;
+	width:1170px;
+	height:300px;
+	vertical-align:middle;
+}
+#imgContainer{
+	position:relative;
+}
+
+#imgText{
+	position:absolute;
+	text-align:left;
+	top: 15%;
+	padding-left:10px;
+}
+#h4text{
+	color:white;
+	text-align:left;
+}
+#popUpdel{
+	font-family: "NanumSquareRoundR";
+	padding-top:200px;
+}
+#delInput{
+	padding-left:20px;
+}
+#delbutton,#modbutton{
+	background:#666666;
+	border:1px solid #666666;
+	color:white;
+}
+#h4text{
+	font-family: "NanumSquareRoundEB";
+	
+}
+#subjectText{
+	font-family: "NanumSquareRoundEB";	
+}
+.iclnImg{
+	position:absolute;
+	bottom:0;
+	right:0;
+}
+.iclnImgB{
+	width : 40px;
+	height : 40px;
+	margin:5px;
+}

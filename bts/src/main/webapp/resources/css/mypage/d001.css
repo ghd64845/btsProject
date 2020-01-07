@@ -1,0 +1,210 @@
+@charset "UTF-8";
+
+img {
+   border: 0;
+   outline: none;
+   width: 100%;
+}
+
+.user-picture {
+    width: 80px;
+    height: 80px;
+    border-radius: 80px;
+    background: #ddd;
+}
+
+.mypage-picture {
+}
+
+.mypage-picture button {
+    vertical-align: bottom;
+    margin-left: 15px;
+}
+
+.modal-inmodal {
+    position: fixed;
+    margin: 30px auto;
+    z-index: 1050;
+}
+
+.package{
+   margin-left:50px;
+}
+
+#profImg{
+   max-width:400px;
+   max-height:400px;
+}
+
+/* 사진 변경 모델*/
+#modal-set-profile-img {
+}
+
+#modal-set-profile-img .btn-form-submit.outline {
+    width: 100%;
+    margin: 10px 0;
+}
+
+#modal-set-profile-img form {
+    position: relative;
+}
+
+#modal-set-profile-img .file-wrapper {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 100%;
+}
+
+#modal-set-profile-img input[type="file"] {
+    width: 100%;
+    height: 40px;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    cursor: pointer;
+}
+
+.sub-container {
+    min-height: 500px;
+    padding: 50px 40px 0 40px;
+}
+
+.sub-container .row {
+    margin: 0 0 15px 0;
+}
+
+.order-point-wrapper {
+    display: flex;
+    position: relative;
+}
+
+input, [type="text"], [type="password"], [type="search"], [type="email"], [type="url"],
+[type="number"], [type="tel"], textarea, select, input[type="radio"],
+input[type="checkbox"], .input-prefix, .input-suffix, .form-control {
+    border: 1px solid rgb(196, 196, 196);
+    border-radius: 2px;
+    background-image: none;
+    height: 40px;
+    padding: 6px 10px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+select::-ms-expand {
+   background-color: transparent;
+    border: 0
+}
+footer {
+   padding: 0 15px;
+}
+.form-control:focus {
+    border-color: #EC407A;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.check-box {
+    float: left;
+    position: relative;
+    padding-right: 8px;
+    padding-left: 16px;
+}
+.btn {
+    font-weight: 400;
+    border-radius: 3px;
+}
+
+.btn:hover, .btn:focus {
+    text-decoration: none;
+}
+.btn:active, .btn.active {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+    
+.btn-primary {
+    background-color: #1ab394;
+    border-color: #1ab394;
+    color: #FFFFFF;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary, .btn-primary:active:focus, .btn-primary:active:hover, .btn-primary.active:hover, .btn-primary.active:focus {
+    background-color: #18a689;
+    border-color: #18a689;
+    color: #FFFFFF;
+}
+
+#profImg{
+   border-radius:25em;
+   width:170px;
+   height:170px;
+   padding:15px;
+}
+.check{
+   width:100%;
+   height:auto;
+}
+.btn-group-toggle{
+   width:100%;
+}
+.btn-lg{
+   display:inline-block;
+   width:50%;   
+}
+.btn-lg input[type=raius]{
+   font-size:13px;
+}
+.input[type='redio'],input[type='radio']:checked {
+   appearance: none;
+   width: 0.9rem;
+   height: 0.9rem;
+   border-radius: 100%;
+   margin-right: 0.1rem;
+   
+}
+
+input[type='radio'] {
+   background-color: $white-color;
+   border: 2px solid $font-color-3;
+   background-color:lightgray;
+}
+
+input[type='radio']:checked {
+   backgound-color: $font-color-2;
+}
+.custom-control{
+   width:50%;
+   float:left;
+   line-height:76.5px;
+}
+
+#btn-form-submit{
+   background-color: #203341;
+   width:100px;
+   color:#fff;
+   float:right;
+}
+#delFrm{
+   position:relative;
+   width: 300px;
+   height:auto;
+   margin-left:150px;
+}
+.withdrawal_check div{
+   margin-bottom:10px;
+}
+.withdrawal_check div p{
+   position:absolute;
+   width:100px;
+   display:inline-block;
+   line-height:30px;
+   margin:0;
+}
+.withdrawal_check div input[type=password]{
+   position:relative;
+   width:150px;
+   height:30px;
+   left:100px;
+}
+.btn-lg{
+   width:100px;
+   height:34px;
+}

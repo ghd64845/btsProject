@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.report">
+	<resultMap id="pnishResult" type="pnishVO">
+		<result property="pnish_cd" column="pnish_cd" />
+		<result property="name" column="name" />
+		<result property="day_cnt" column="day_cnt" />
+	</resultMap>
+	
+	<select id="selectMenuCd" parameterType="string" resultType="string">
+	    <![CDATA[
+			SELECT menu_cd
+			FROM menu
+			WHERE name=#{name}
+	    ]]>
+	</select>
+	
+	<select id="selectPnishList" resultMap="pnishResult">
+	    <![CDATA[
+			SELECT pnish_cd,name,day_cnt
+			FROM punishment
+			ORDER BY name
+	    ]]>
+	</select>	
+	
+	<insert id="insertReport" parameterType="reportVO">
+		INSERT INTO report_list (report_no, report_date, title, report_se, contents_cd, contents, pnish_cd, reporter_id, target_id, report_at, target_contents)
+		VALUES (report_list_seq.nextval, sysdate, #{title}, #{report_se}, #{contents_cd}, #{contents}, #{pnish_cd}, #{reporter_id}, #{target_id}, 'N', #{target_contents} )
+	</insert>
+	
+	<select id="selectReviewContents" parameterType="reportVO" resultType="string">
+	    <![CDATA[
+			SELECT contents
+			FROM article
+			WHERE article_no=#{contents_cd}
+	    ]]>	
+	</select>
+	
+	<select id="selectAccContents" parameterType="reportVO" resultType="string">
+	    <![CDATA[
+			SELECT content
+			FROM accompany
+			WHERE article_no=#{contents_cd}
+	    ]]>	
+	</select>
+
+	<select id="selectPlanContents" parameterType="reportVO" resultType="string">
+	    <![CDATA[
+			SELECT DECODE(GROUPING(detail_no),1,'<h3>'||day_no,'<p>'||ROW_NUMBER() OVER(ORDER BY detail_no)||' : ') || DECODE(GROUPING(detail_no),1,'</h3>',plan_desc||'</p>')
+			FROM planner_detail
+			WHERE plan_no=#{contents_cd}
+			GROUP BY ROLLUP(day_no,(detail_no,plan_desc))
+			ORDER BY day_no,GROUPING(detail_no) DESC,detail_no
+	    ]]>	
+	</select>
+	
+	<select id="selectCommentContents" parameterType="reportVO" resultType="string">
+	    <![CDATA[
+			SELECT answer_desc
+			FROM answer_article
+			WHERE answer_no=#{contents_cd}
+	    ]]>	
+	</select>
+</mapper>
